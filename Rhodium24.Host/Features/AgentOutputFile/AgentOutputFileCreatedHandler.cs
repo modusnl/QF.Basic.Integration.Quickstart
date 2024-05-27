@@ -44,10 +44,11 @@ namespace Rhodium24.Host.Features.AgentOutputFile
             await Task.Delay(500, cancellationToken);
 
             // define file paths
-            var jsonFilePath = notification.FilePath;
+            var filePath = notification.FilePath;
+            var jsonFilePath = Path.ChangeExtension(notification.FilePath, ".json");
             var zipFilePath = Path.ChangeExtension(notification.FilePath, ".zip");
 
-            // check if json & zip file exists it means that a project has been exported
+            // if both json & zip file exists it means that a project has been exported
             if (File.Exists(jsonFilePath) && File.Exists(zipFilePath))
             {
                 await _graphConnector.UploadFileSharePointOnline(jsonFilePath);
@@ -57,7 +58,19 @@ namespace Rhodium24.Host.Features.AgentOutputFile
                 return;
             }
 
-            await HandleAgentMessage(jsonFilePath);
+            // if only json file exists it's probably an Agent input message
+            else if (File.Exists(jsonFilePath))
+            {
+                await HandleAgentMessage(jsonFilePath);
+                return;
+            }
+
+            // if other file type just upload
+            else if (File.Exists(filePath))
+            {
+                await _graphConnector.UploadFileSharePointOnline(filePath);
+                _options.MoveFileToProcessed(filePath);
+            }
         }
 
         private async Task HandleProjectFiles(string jsonFilePath, string zipFilePath)
@@ -86,10 +99,12 @@ namespace Rhodium24.Host.Features.AgentOutputFile
                 _logger.LogInformation("Project processed succesfully; buyer: {1}, id: {2}, reference: {3}", project.BuyingParty.Name, project.Id, project.ProjectReference);
 
                 // move file to agent processed directory
+                /*
                 _options.MoveFileToProcessed(jsonFilePath);
                 _options.MoveFileToProcessed(zipFilePath);
 
                 _logger.LogInformation("Moved files to {1}", _options.GetProcessedDirectory());
+                */
 
             }
             catch (Exception ex)

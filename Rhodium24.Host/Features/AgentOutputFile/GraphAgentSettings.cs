@@ -5,6 +5,9 @@ namespace Rhodium24.Host.Features.AgentOutputFile
 {
     public class GraphAgentSettings : AgentSettings
     {
+        public string WatchDirectory { get; set; }
+        public string WatchFilter { get; set; }
+
         [Required]
         public string TenantId { get; set; }
 

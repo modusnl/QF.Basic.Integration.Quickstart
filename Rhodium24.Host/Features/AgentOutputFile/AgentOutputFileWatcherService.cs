@@ -23,8 +23,11 @@ namespace Rhodium24.Host.Features.AgentOutputFile
             _mediator = mediator;
             _logger = logger;
 
+            var path = options.Value.WatchDirectory ?? options.Value.GetOutputDirectory();
+            var filter = options.Value.WatchFilter ?? "*.json";
+
             // add file watcher to the agent output directory
-            AddFileWatcher(options.Value.GetOutputDirectory(), "*.json");
+            AddFileWatcher(path, filter);
         }
 
 
