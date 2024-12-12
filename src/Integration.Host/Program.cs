@@ -1,5 +1,5 @@
 using System;
-using Integration.Common;
+using System.IO;
 using Integration.Host.Configuration;
 using Integration.Host.Features.OutputFile;
 using MetalHeaven.Agent.Shared.External.Classes;
@@ -14,16 +14,19 @@ public static class Program
 {
     public static void Main(string[] args)
     {
+
+        var logPath = Path.Combine(AppContext.BaseDirectory, "Logs", "log-.txt");
         Log.Logger = new LoggerConfiguration()
             .Enrich.FromLogContext()
             .MinimumLevel.Debug()
             .WriteTo.Console()
-            .WriteTo.File("logs\\log.txt", rollingInterval: RollingInterval.Day)
+            .WriteTo.File(logPath, rollingInterval: RollingInterval.Day)
             .CreateLogger();
 
         try
         {
             Log.Information("Starting host");
+            Log.Information("LogPath: " + Path.GetFullPath(logPath));
             CreateHostBuilder(args).Build().Run();
         }
         catch (Exception ex)
