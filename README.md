@@ -2,7 +2,7 @@
 
 This EdgeConnector extends the QF EdgeConnector as documented in [QF readme](https://github.com/QuotationFactory/Integration.Quickstart/blob/master/README.md)
 
-For RODIN this is extended with the [Features.Graph.GraphConnector](./src/Integration.Host/Features/Graph/GraphConnector.cs) class to upload/download files from SharePointOnline
+For RODIN this is extended with the [Features.Graph.GraphConnector](./src/Integration.Host/Features/Graph/GraphConnector.cs) class to upload files to SharePointOnline
 
 The **EdgeConnector** is used for **uploading** files from RODIN factory to RODIN SharePoint, specifically for both `QF` and `MMS` files generated on-site.
 
