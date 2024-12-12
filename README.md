@@ -2,11 +2,11 @@
 
 This EdgeConnector extends the QF EdgeConnector as documented in [QF readme](https://github.com/QuotationFactory/Integration.Quickstart/blob/master/README.md)
 
-For RODIN this is extended with the [Features.Graph.GraphConnector](./src/Integration.Host/Features/Graph/GraphConnector.cs) class to upload files to SharePointOnline
+This is extended with the [Features.Graph.GraphConnector](./src/Integration.Host/Features/Graph/GraphConnector.cs) class to upload files to SharePointOnline
 
-The **EdgeConnector** is used for **uploading** files from RODIN factory to RODIN SharePoint, specifically for both `QF` and `MMS` files generated on-site.
+The **EdgeConnector** can be used for **uploading** files from the on-site factory to SharePointOnline.
 
-For **downloading** from SharePointOnline, RODIN uses **Azure Logic App** to trigger on a file created event in SharePointOnline and write file to Azure Blob storage, which is respectively synced via AzCopy to RODIN on-site.
+For **downloading** from SharePointOnline, one could use **Azure Logic App** to trigger on a file created event in SharePointOnline and write file to Azure Blob storage, which is respectively synced via AzCopy back to factory on-site.
 
 ## WatchDirectory
 
