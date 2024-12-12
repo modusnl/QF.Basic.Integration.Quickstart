@@ -13,4 +13,4 @@ For **downloading** from SharePointOnline, RODIN uses **Azure Logic App** to tri
 If specified in the configuration, the `WatchDirectory` is used for configuring the directory to watch, i.e. `\\MyServer\MyFolder`
 Similarly the `WatchFilter`, i.e. `*.json`
 
-Files are moved to `{RootDirectory}\Processed`
+Files are moved to `{RootDirectory}\Output\Processed`
