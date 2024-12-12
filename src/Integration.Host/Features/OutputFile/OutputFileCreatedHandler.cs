@@ -58,8 +58,6 @@ public class OutputFileCreatedHandler : INotificationHandler<OutputFileCreated>
         {
             await _graphConnector.UploadFileSharePointOnline(jsonFilePath);
             await _graphConnector.UploadFileSharePointOnline(zipFilePath);
-            _options.MoveFileToProcessed(jsonFilePath);
-            _options.MoveFileToProcessed(zipFilePath);
 
             //BE CAREFULL HERE Both scenario's cannot be supported concurrent.
 
@@ -72,13 +70,15 @@ public class OutputFileCreatedHandler : INotificationHandler<OutputFileCreated>
         }
 
         // if only json file exists it's probably an Input message
+        /*
         else if (File.Exists(jsonFilePath))
         {
             await HandleInputMessage(jsonFilePath);
             return;
         }
+        */
 
-        // if other file type just upload
+        // if other file type just upload & move to Processed
         else if (File.Exists(filePath))
         {
             await _graphConnector.UploadFileSharePointOnline(filePath);
